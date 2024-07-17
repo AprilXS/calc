@@ -1,0 +1,10 @@
+- name: update the vm server
+  shell: apt-get update
+  become: yes
+- name: install nginx
+  shell: apt-get install -y nginx
+  become: yes
+- name: start nginx
+  shell: systemctl start nginx
+  become: yes
+  

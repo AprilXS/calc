@@ -1,0 +1,14 @@
+- name: upload the nginx configuration file
+  template:
+    src: ../../../templates/nginx_config_template.j2
+    dest: /etc/nginx/sites-available/default
+  
+- name: enable the site
+  shell: ln -s /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
+  become: yes
+  args:
+    creates: /etc/nginx/sites-enabled/default
+
+- name: restart nginx
+  shell: sudo systemctl restart nginx
+  become: yes

@@ -1,0 +1,34 @@
+- name: update and upgrade apt packages
+  shell: sudo apt-get update
+  become: yes
+
+# - name: install Node.js and npm
+#   shell: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+#   shell: nvm install 20
+#   become: yes
+
+# - name: install pm2
+#   shell: npm install pm2 -g
+#   become: yes
+
+- name: copy the nuxt-deploy directory to the remote host
+  synchronize:
+    src: /home/hamza-alhead/Documents/Code/calc/web/
+    dest: /var/www/web
+
+- name: install nuxt dependencies
+  shell: npm install
+  args:
+    chdir: /var/www/web
+  
+- name: build the nuxt project
+  shell: npm run build
+  args:
+    chdir: /var/www/web
+  become: yes
+
+- name: start the nuxt project
+  shell: pm2 start npm --name "nuxt" -- start
+  args:
+    chdir: /var/www/web
+  become: yes

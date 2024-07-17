@@ -1,0 +1,87 @@
+
+- name: Update the VM server
+  apt:
+    update_cache: yes
+
+- name : Install ondrej/php
+  apt_repository:
+    repo: ppa:ondrej/php
+    state: present
+
+- name: Install PHP and necessary extensions
+  apt:
+    name:
+      - php8.3
+      - php8.3-fpm
+      - php-xml
+      - php8.3-cli
+      - php-bcmath
+      - php8.3-curl
+      - php-mbstring
+      - zip
+      - unzip
+      - curl
+      - php-intl
+      - php8.3-mysql
+    state: present
+
+# - name: import the mongodb public GPG key
+#   shell: wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc |  gpg --dearmor | sudo tee /usr/share/keyrings/mongodb.gpg > /dev/null 
+
+
+# - name: Install mongodb community Edition
+#   shell: echo "deb [ arch=amd64,arm64 signed-by=/usr/share/keyrings/mongodb.gpg ] https://repo.mongodb.org/apt/ubuntu jammy/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
+#   shell: sudo apt update
+#   shell: sudo apt install -y mongodb-org
+
+
+- name: Update apt cache
+  apt:
+    update_cache: yes
+
+- name: Install MySQL server
+  apt:
+    name: default-mysql-server
+    state: present
+
+- name: Start and enable Nginx, MySQL, and PHP-FPM
+  systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: yes
+  loop:
+    - nginx
+    - mysql
+    - php8.3-fpm
+    - mongod
+
+- name: Download and install Composer
+  shell: curl -sS https://getcomposer.org/installer | php
+  args:
+    chdir: /usr/src/
+    creates: /usr/bin/composer
+  become: yes
+
+- name: Add Composer to global path
+  copy: 
+    dest: /usr/bin/composer
+    group: root
+    mode: '0755'
+    owner: root
+    src: /usr/src/composer.phar
+    remote_src: yes
+  become: yes
+  
+
+
+- name: install pip
+  become: true # needed if the other tasks are not played as root
+  apt:
+    name: python3-pip
+    state: present
+
+- name: install PyMySQL
+  become: true
+  pip:
+    name: PyMySQL
+

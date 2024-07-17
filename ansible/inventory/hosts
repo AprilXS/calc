@@ -1,0 +1,3 @@
+[multipass_host]
+10.201.22.25    ansible_ssh_private_key_file=/home/hamza-alhead/.ssh/m ansible_user=ubuntu
+

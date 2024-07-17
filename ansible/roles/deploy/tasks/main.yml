@@ -1,0 +1,42 @@
+- name: copy laravel project
+  synchronize:
+    src: /home/hamza-alhead/Documents/Code/calc/api/
+    dest: /var/www/api
+    
+# - name: update composer
+#   shell: composer self-update
+#   shell: composer clear-cache
+#   shell: composer update
+#   args:
+#     chdir: /var/www/api
+
+- name: set permissions for laravel storage and bootstrap/cache
+  shell: sudo chmod -R 777 storage
+  shell: sudo chmod -R 777 bootstrap/cache
+  args:
+    chdir: /var/www/api
+  become: yes
+
+# - name: create test file for testing purpose
+#   shell: touch test.txt
+#   args:
+#     chdir: /var/www/api
+
+# - name: update composer
+#   shell: composer update
+#   args:
+#     chdir: /var/www/api
+#   become: yes
+
+# - name: install composer dependencies
+#   shell: composer install
+#   args:
+#     chdir: /var/www/api
+#   become: yes
+    
+- name: run laravel migrations
+  shell: php artisan migrate
+  args:
+    chdir: /var/www/api
+
+

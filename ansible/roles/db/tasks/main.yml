@@ -1,0 +1,20 @@
+- name : access the database
+  shell: sudo mysql
+  args:
+    stdin: "CREATE DATABASE IF NOT EXISTS myCalc;"
+  become: yes
+- name : create a user
+  shell: sudo mysql
+  args:
+    stdin: "CREATE USER IF NOT
+    EXISTS 'hamza'@'localhost' IDENTIFIED BY '123456';"
+  become: yes
+- name : grant privileges
+  shell: sudo mysql
+  args:
+    stdin: "GRANT ALL PRIVILEGES ON myCalc.* TO '
+    hamza'@'localhost';"
+  become: yes
+    
+    
+  
