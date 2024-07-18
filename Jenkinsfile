@@ -25,6 +25,7 @@ pipeline {
                     sh 'ssh -v ubuntu@web-app-server'
                     
 
+                }
             }
         }
     }
