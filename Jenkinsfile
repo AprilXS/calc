@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/.ssh/id_rsa ubuntu@10.201.22.25'
+                sh 'ssh -o StrictHostKeyChecking=no -i /var/lib/jenkins/.ssh/m ubuntu@10.201.22.25'
                 // sh 'ansible -i ansible/inventory/hosts all -m ping'
             }
         }
