@@ -13,7 +13,7 @@ pipeline {
                                  disableHostKeyChecking: true,
                                  installation: 'ansible',
                                  inventory: 'ansible/inventory/hosts',
-                                 playbook: 'ansible/vm-setup.yml',
+                                 playbook: 'ansible/vm-setup.yml'
             }    
         }    
     }
