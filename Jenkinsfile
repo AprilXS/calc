@@ -7,10 +7,14 @@ pipeline {
                 echo 'Building..'
             }
         }
-        stage('Install Packages') {
+        stage("Execute Ansible") {
             steps {
-                ansiblePlaybook playbook: 'ansible/vm-setup.yml', inventory: 'ansible/inventory/hosts'
-            }
-        }
+                ansiblePlaybook credentialsId: 'ubuntu',
+                                 disableHostKeyChecking: true,
+                                 installation: 'ansible',
+                                 inventory: 'ansible/inventory/hosts',
+                                 playbook: 'ansible/vm-setup.yml',
+            }    
+        }    
     }
 }
