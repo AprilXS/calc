@@ -9,8 +9,8 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh 'ssh -i /var/lib/jenkins/.ssh/m ubuntu@10.201.22.25'
-                // sh 'ansible -i ansible/inventory/hosts all -m ping'
+                //sh 'ssh -i /var/lib/jenkins/.ssh/m ubuntu@10.201.22.25'
+                 sh 'ansible -i ansible/inventory/hosts all -m ping'
             }
         }
         // stage("Execute Ansible") {
