@@ -7,9 +7,9 @@ pipeline {
                 echo 'Building..'
             }
         }
-        stage('Test') {
+        stage('Install Packages') {
             steps {
-                shell: 'ansible-playbook -i ansible/inventory/hosts ansible/vm-setup.yml'
+                ansiblePlaybook playbook: 'ansible/vm-setup.yml', inventory: 'ansible/inventory/hosts'
             }
         }
     }
