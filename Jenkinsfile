@@ -9,7 +9,7 @@ pipeline {
         }
         stage("Execute Ansible") {
             steps {
-                ansiblePlaybook credentialsId: 'ubuntu',
+                ansiblePlaybook credentialsId: 'ubuntu-jenkins',
                                  disableHostKeyChecking: true,
                                  installation: 'ansible',
                                  inventory: 'ansible/inventory/hosts',
