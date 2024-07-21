@@ -5,8 +5,6 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building..',
-                // test the connection to the remote server
-                sh 'ansible -i ansible/inventory/hosts all -m ping'
             }
         }
         stage("Execute Ansible") {
