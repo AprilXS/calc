@@ -1,3 +1,3 @@
 - name: create a folder called test
-  shell: mkdir /tmp/test
+  shell: mkdir /tmp/looool
   become: yes
